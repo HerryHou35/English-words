@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>六级/雅思 100词卡</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&family=DM+Mono&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F7F4EF;
+  --card: #FFFFFF;
+  --text: #1A1814;
+  --muted: #7A7468;
+  --accent: #C84B31;
+  --accent2: #2E6B8A;
+  --accent3: #4A7C59;
+  --accent4: #7B5EA7;
+  --border: #E2DDD6;
+  --tag-emo-bg: #FDF0ED; --tag-emo: #C84B31;
+  --tag-life-bg: #EDF5F0; --tag-life: #4A7C59;
+  --tag-soc-bg: #EDF2F7; --tag-soc: #2E6B8A;
+  --tag-acad-bg: #F3F0F8; --tag-acad: #7B5EA7;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* HEADER */
+header {
+  text-align: center;
+  padding: 3.5rem 1rem 2rem;
+  position: relative;
+}
+.header-en {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 6vw, 3.8rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--text);
+}
+.header-zh {
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin-top: 0.5rem;
+  letter-spacing: 0.08em;
+  font-weight: 300;
+}
+.header-line {
+  width: 40px; height: 2px;
+  background: var(--accent);
+  margin: 1.2rem auto;
+}
+
+/* CONTROLS */
+.controls {
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+.search-wrap {
+  flex: 1;
+  min-width: 200px;
+  position: relative;
+}
+.search-icon {
+  position: absolute;
+  left: 14px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 14px;
+  pointer-events: none;
+}
+input[type=search] {
+  width: 100%;
+  padding: 10px 14px 10px 38px;
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  background: var(--card);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  transition: border-color .2s;
+}
+input[type=search]:focus { border-color: var(--accent); }
+
+.filter-btns { display: flex; flex-wrap: wrap; gap: 6px; }
+.fbtn {
+  padding: 8px 16px;
+  border-radius: 50px;
+  border: 1.5px solid var(--border);
+  background: var(--card);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all .2s;
+  white-space: nowrap;
+}
+.fbtn:hover { border-color: var(--text); color: var(--text); }
+.fbtn.active { background: var(--text); color: var(--bg); border-color: var(--text); font-weight: 500; }
+.fbtn.f-emo.active  { background: var(--accent);  border-color: var(--accent);  color: #fff; }
+.fbtn.f-life.active { background: var(--accent3); border-color: var(--accent3); color: #fff; }
+.fbtn.f-soc.active  { background: var(--accent2); border-color: var(--accent2); color: #fff; }
+.fbtn.f-acad.active { background: var(--accent4); border-color: var(--accent4); color: #fff; }
+
+.count-badge {
+  margin-left: auto;
+  font-size: 13px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* GRID */
+.grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 14px;
+}
+
+/* CARD */
+.card {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  padding: 1.25rem 1.3rem 1rem;
+  cursor: pointer;
+  transition: transform .18s, box-shadow .18s, border-color .18s;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  opacity: 0;
+  transition: opacity .2s;
+}
+.card.cat-emo::before  { background: var(--accent);  }
+.card.cat-life::before { background: var(--accent3); }
+.card.cat-soc::before  { background: var(--accent2); }
+.card.cat-acad::before { background: var(--accent4); }
+.card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.07); border-color: #ccc; }
+.card:hover::before { opacity: 1; }
+
+.card-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 4px; }
+.word {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.2;
+}
+.tag {
+  font-size: 10.5px;
+  font-weight: 500;
+  padding: 3px 9px;
+  border-radius: 20px;
+  margin-left: 8px;
+  margin-top: 4px;
+  letter-spacing: 0.03em;
+  flex-shrink: 0;
+}
+.tag-emo  { background: var(--tag-emo-bg);  color: var(--tag-emo);  }
+.tag-life { background: var(--tag-life-bg); color: var(--tag-life); }
+.tag-soc  { background: var(--tag-soc-bg);  color: var(--tag-soc);  }
+.tag-acad { background: var(--tag-acad-bg); color: var(--tag-acad); }
+
+.phonetic {
+  font-family: 'DM Mono', monospace;
+  font-size: 11.5px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.meaning {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 7px;
+  line-height: 1.4;
+}
+.example {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.6;
+  padding-left: 10px;
+  border-left: 2px solid var(--border);
+  margin-bottom: 8px;
+  font-style: italic;
+}
+.mem-area {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height .3s ease, opacity .3s;
+  opacity: 0;
+}
+.card.open .mem-area { max-height: 80px; opacity: 1; }
+.mem {
+  font-size: 12px;
+  color: var(--accent);
+  background: var(--tag-emo-bg);
+  border-radius: 8px;
+  padding: 6px 10px;
+  line-height: 1.5;
+  margin-top: 4px;
+}
+.card.cat-life .mem { color: var(--accent3); background: var(--tag-life-bg); }
+.card.cat-soc  .mem { color: var(--accent2); background: var(--tag-soc-bg);  }
+.card.cat-acad .mem { color: var(--accent4); background: var(--tag-acad-bg); }
+
+.toggle-hint {
+  position: absolute;
+  bottom: 10px; right: 13px;
+  font-size: 11px;
+  color: var(--border);
+  transition: color .2s;
+}
+.card:hover .toggle-hint { color: var(--muted); }
+
+/* EMPTY */
+.empty {
+  grid-column: 1/-1;
+  text-align: center;
+  padding: 4rem;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 2rem 1rem 3rem;
+  font-size: 12px;
+  color: var(--border);
+  letter-spacing: 0.06em;
+}
+
+/* PROGRESS BAR */
+.progress-bar-wrap {
+  max-width: 1200px;
+  margin: 0 auto 1.5rem;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.prog-label { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.prog-track {
+  flex: 1;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.prog-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width .4s ease;
+}
+
+@media(max-width:600px) {
+  .controls { flex-direction: column; }
+  .count-badge { margin-left: 0; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-en">100 Essential Words</div>
+  <div class="header-line"></div>
+  <div class="header-zh">六级 · 雅思 · 高频词汇  ——  点击卡片展开记忆技巧</div>
+</header>
+
+<div class="controls">
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input type="search" id="search" placeholder="搜索单词或中文…" oninput="filterCards()">
+  </div>
+  <div class="filter-btns">
+    <button class="fbtn active" data-cat="all" onclick="setFilter('all',this)">全部</button>
+    <button class="fbtn f-emo"  data-cat="emo"  onclick="setFilter('emo',this)">情感 / 人际</button>
+    <button class="fbtn f-life" data-cat="life" onclick="setFilter('life',this)">日常生活</button>
+    <button class="fbtn f-soc"  data-cat="soc"  onclick="setFilter('soc',this)">社会 / 时事</button>
+    <button class="fbtn f-acad" data-cat="acad" onclick="setFilter('acad',this)">学术 / 考试</button>
+  </div>
+  <span class="count-badge" id="count-badge">100 词</span>
+</div>
+
+<div class="progress-bar-wrap">
+  <span class="prog-label" id="prog-label">已翻开 0 / 100</span>
+  <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<footer>Made with ♡ &nbsp;·&nbsp; 每天8个，坚持就是胜利</footer>
+
+<script>
+const WORDS = [
+  // ── 情感 / 人际 emo (25词) ──────────────────────────
+  {w:"genuine",     ph:"/ˈdʒenjuɪn/",    zh:"真实的；真诚的",       ex:"Her smile was genuine — you could feel it.",              mem:"gene（基因）+ ine，基因里带来的才是真的",          cat:"emo"},
+  {w:"affection",   ph:"/əˈfekʃn/",      zh:"情感；喜爱",           ex:"She showed great affection for her family.",              mem:"affect（影响）+ ion，被影响了就是有感情",          cat:"emo"},
+  {w:"cherish",     ph:"/ˈtʃerɪʃ/",      zh:"珍视；爱护",           ex:"Cherish every moment you have together.",                 mem:"cherry（樱桃）很珍贵，所以要cherish",             cat:"emo"},
+  {w:"vulnerable",  ph:"/ˈvʌlnərəbl/",   zh:"脆弱的；易受伤的",     ex:"She felt vulnerable after the breakup.",                  mem:"vulner = wound（伤口），容易受伤的",               cat:"emo"},
+  {w:"compatible",  ph:"/kəmˈpætəbl/",   zh:"合得来的；兼容的",     ex:"They are very compatible as a couple.",                   mem:"com（共同）+ pat（感情）= 感情相通",               cat:"emo"},
+  {w:"commitment",  ph:"/kəˈmɪtmənt/",   zh:"承诺；投入",           ex:"A healthy relationship needs commitment.",                mem:"commit（承诺）+ ment，你commit了多少",             cat:"emo"},
+  {w:"tolerate",    ph:"/ˈtɒləreɪt/",    zh:"容忍；忍受",           ex:"I can't tolerate rudeness.",                              mem:"toll（代价）谐音 tol，忍耐是有代价的",             cat:"emo"},
+  {w:"anticipate",  ph:"/ænˈtɪsɪpeɪt/",  zh:"期待；预期",           ex:"I always anticipate seeing you.",                         mem:"anti（前）+ cip（抓）= 提前抓住，即期待",         cat:"emo"},
+  {w:"empathy",     ph:"/ˈempəθi/",      zh:"同理心；共情",         ex:"Empathy is key to a good relationship.",                  mem:"em + pathy（感受），进入对方感受 = 共情",          cat:"emo"},
+  {w:"sincere",     ph:"/sɪnˈsɪə/",      zh:"真诚的；诚挚的",       ex:"Please accept my sincere apology.",                       mem:"sin（没有）+ cere（蜡），古罗马雕塑不掺蜡才是真品",cat:"emo"},
+  {w:"intimate",    ph:"/ˈɪntɪmət/",     zh:"亲密的；私密的",       ex:"They have a very intimate friendship.",                   mem:"into + mate，进入内心的伙伴",                     cat:"emo"},
+  {w:"reassure",    ph:"/ˌriːəˈʃɔː/",    zh:"使放心；安慰",         ex:"She reassured him that everything was okay.",             mem:"re（再）+ assure（保证）= 再次保证，让人放心",     cat:"emo"},
+  {w:"frustration", ph:"/frʌˈstreɪʃn/",  zh:"沮丧；挫败感",         ex:"He couldn't hide his frustration.",                       mem:"frus + tration，被挡住走不动路的感觉",             cat:"emo"},
+  {w:"grief",       ph:"/ɡriːf/",        zh:"悲伤；悲痛",           ex:"She was overwhelmed with grief.",                         mem:"gray（灰色）谐音，悲伤让世界变灰",                cat:"emo"},
+  {w:"regret",      ph:"/rɪˈɡret/",      zh:"后悔；遗憾",           ex:"I deeply regret what I said.",                            mem:"re（回）+ gret，一直回头看就是后悔",               cat:"emo"},
+  {w:"gratitude",   ph:"/ˈɡrætɪtjuːd/",  zh:"感激；感恩",           ex:"Express gratitude for small things.",                     mem:"grat（感谢）+ itude，满满的感谢",                  cat:"emo"},
+  {w:"optimistic",  ph:"/ˌɒptɪˈmɪstɪk/", zh:"乐观的",               ex:"Stay optimistic even in tough times.",                    mem:"opt（最好）+ imistic，总想着最好的结果",           cat:"emo"},
+  {w:"anxious",     ph:"/ˈæŋkʃəs/",      zh:"焦虑的；急切的",       ex:"She felt anxious before the exam.",                       mem:"ankh（古埃及生命符号）+ ious，怕失去生命=焦虑",    cat:"emo"},
+  {w:"devoted",     ph:"/dɪˈvəʊtɪd/",    zh:"忠诚的；专注的",       ex:"She is devoted to her work.",                             mem:"de + vote（投票），把票全投给一个人",               cat:"emo"},
+  {w:"mutual",      ph:"/ˈmjuːtʃuəl/",   zh:"相互的；共同的",       ex:"Respect should be mutual.",                               mem:"mu（共同）+ tual，大家都有的",                     cat:"emo"},
+  {w:"jealous",     ph:"/ˈdʒeləs/",      zh:"嫉妒的；妒忌的",       ex:"He felt jealous of her success.",                         mem:"J + ealous，像监视（jealous）对方",                cat:"emo"},
+  {w:"compassion",  ph:"/kəmˈpæʃn/",     zh:"怜悯；同情心",         ex:"She showed compassion for the poor.",                     mem:"com（共同）+ passion（激情/感受）= 共同感受痛苦",  cat:"emo"},
+  {w:"resentment",  ph:"/rɪˈzentmənt/",  zh:"怨恨；不满",           ex:"She couldn't let go of her resentment.",                  mem:"re + sent（感觉）+ ment，反复感觉到的不爽",        cat:"emo"},
+  {w:"longing",     ph:"/ˈlɒŋɪŋ/",       zh:"渴望；思念",           ex:"She felt a deep longing for home.",                       mem:"long（长）+ ing，长长的思念",                      cat:"emo"},
+  {w:"forgive",     ph:"/fəˈɡɪv/",       zh:"原谅；宽恕",           ex:"It takes strength to forgive.",                           mem:"for（完全）+ give（给），彻底给出去就是原谅",       cat:"emo"},
+
+  // ── 日常生活 life (25词) ──────────────────────────
+  {w:"convenient",  ph:"/kənˈviːniənt/",  zh:"方便的；便利的",       ex:"The supermarket is very convenient.",                     mem:"con + veni（来）= 随时能来，很方便",               cat:"life"},
+  {w:"budget",      ph:"/ˈbʌdʒɪt/",       zh:"预算；控制开支",       ex:"We need to stick to our budget.",                         mem:"家里的bud（芽）要管好，不能乱花",                  cat:"life"},
+  {w:"flexible",    ph:"/ˈfleksɪbl/",      zh:"灵活的；可变通的",     ex:"My schedule is quite flexible.",                          mem:"flex（弯曲）= 能弯曲就是灵活",                    cat:"life"},
+  {w:"routine",     ph:"/ruːˈtiːn/",       zh:"日常习惯；惯例",       ex:"Morning exercise is part of her routine.",                mem:"route（路线）+ ine，每天走同一条路",               cat:"life"},
+  {w:"adequate",    ph:"/ˈædɪkwət/",       zh:"足够的；适当的",       ex:"Make sure you get adequate sleep.",                       mem:"ad + equate（相等），刚好够了",                    cat:"life"},
+  {w:"reluctant",   ph:"/rɪˈlʌktənt/",    zh:"不情愿的；勉强的",     ex:"She was reluctant to leave the party.",                   mem:"re（反）+ luct（挣扎）= 反着挣扎",                cat:"life"},
+  {w:"enhance",     ph:"/ɪnˈhɑːns/",       zh:"提高；增强",           ex:"Exercise can enhance your mood.",                         mem:"en（进入）+ hance（高），往高处走",                cat:"life"},
+  {w:"fatigue",     ph:"/fəˈtiːɡ/",        zh:"疲劳；疲倦",           ex:"Mental fatigue affects daily life.",                      mem:"fat（肥）+ igue，累了像背着肥肉走路",              cat:"life"},
+  {w:"efficient",   ph:"/ɪˈfɪʃnt/",        zh:"高效的；有效率的",     ex:"She is very efficient at her job.",                       mem:"e（出）+ ffici（做）+ ent，做出来了就是高效",      cat:"life"},
+  {w:"maintain",    ph:"/meɪnˈteɪn/",      zh:"维持；保持",           ex:"It's hard to maintain a healthy diet.",                   mem:"main（主要）+ tain（保持），保持主要的状态",       cat:"life"},
+  {w:"neglect",     ph:"/nɪˈɡlekt/",       zh:"忽视；疏忽",           ex:"Don't neglect your mental health.",                       mem:"neg（否定）+ lect（选择），没被选中 = 被忽视",     cat:"life"},
+  {w:"obstacle",    ph:"/ˈɒbstəkl/",       zh:"障碍；阻碍",           ex:"She overcame every obstacle.",                            mem:"ob（对着）+ stac（站）= 挡在前面的东西",          cat:"life"},
+  {w:"priority",    ph:"/praɪˈɒrəti/",     zh:"优先；重要性",         ex:"Sleep should be your priority.",                          mem:"prior（之前）+ ity，排在前面的事",                 cat:"life"},
+  {w:"distract",    ph:"/dɪˈstrækt/",      zh:"分心；使分散注意",     ex:"Don't let your phone distract you.",                      mem:"dis（分散）+ tract（拉），把注意力拉散",           cat:"life"},
+  {w:"accomplish",  ph:"/əˈkʌmplɪʃ/",     zh:"完成；达成",           ex:"She accomplished all her goals.",                         mem:"ac + com（共同）+ plish（填满），把目标填满完成",  cat:"life"},
+  {w:"accumulate",  ph:"/əˈkjuːmjəleɪt/", zh:"积累；积聚",           ex:"Savings accumulate over time.",                           mem:"ac + cumul（堆）+ ate，堆积起来",                  cat:"life"},
+  {w:"indulge",     ph:"/ɪnˈdʌldʒ/",      zh:"放纵；沉溺",           ex:"She indulged in a long bubble bath.",                     mem:"in（进入）+ dulge（甜），沉进甜蜜里",              cat:"life"},
+  {w:"refreshing",  ph:"/rɪˈfreʃɪŋ/",     zh:"令人清爽的；提神的",   ex:"A morning walk feels refreshing.",                        mem:"re（重新）+ fresh（新鲜）= 重新变新鲜",            cat:"life"},
+  {w:"persistent",  ph:"/pəˈsɪstənt/",    zh:"坚持的；持续的",       ex:"Be persistent and you'll succeed.",                       mem:"per（一直）+ sist（站）+ ent，一直站着不放弃",     cat:"life"},
+  {w:"spontaneous", ph:"/spɒnˈteɪniəs/",  zh:"自发的；随性的",       ex:"She made a spontaneous trip to the beach.",               mem:"spon（自己）+ tane + ous，自己发起的，随性的",     cat:"life"},
+  {w:"tedious",     ph:"/ˈtiːdiəs/",       zh:"乏味的；令人厌倦的",   ex:"The long meeting was extremely tedious.",                 mem:"tedi（拉长）+ ous，被拉得很长很无聊",              cat:"life"},
+  {w:"durable",     ph:"/ˈdjʊərəbl/",      zh:"耐用的；持久的",       ex:"Buy durable furniture — it saves money.",                 mem:"dur（持续）+ able，能持续很久的",                  cat:"life"},
+  {w:"affordable",  ph:"/əˈfɔːdəbl/",      zh:"负担得起的；实惠的",   ex:"Looking for affordable restaurants.",                     mem:"afford（负担）+ able，能负担得起的",               cat:"life"},
+  {w:"overwhelm",   ph:"/ˌəʊvəˈwelm/",    zh:"压倒；使不知所措",     ex:"The workload overwhelmed her.",                           mem:"over（超过）+ whelm（淹没），被淹没了",            cat:"life"},
+  {w:"cope",        ph:"/kəʊp/",           zh:"应对；处理",           ex:"She learned to cope with stress.",                        mem:"cope像cope（斗篷），用斗篷挡住压力",               cat:"life"},
+
+  // ── 社会 / 时事 soc (25词) ──────────────────────────
+  {w:"sustainable", ph:"/səˈsteɪnəbl/",    zh:"可持续的",             ex:"We need sustainable energy solutions.",                   mem:"sustain（维持）+ able，能持续维持的",               cat:"soc"},
+  {w:"awareness",   ph:"/əˈweənəs/",       zh:"意识；认识",           ex:"Public awareness of mental health is growing.",           mem:"aware（意识到）+ ness，保持意识的状态",             cat:"soc"},
+  {w:"diverse",     ph:"/daɪˈvɜːs/",       zh:"多样的；多元的",       ex:"Our team is very diverse.",                               mem:"di（两个）+ verse（转），各自转 = 多元",            cat:"soc"},
+  {w:"consequence", ph:"/ˈkɒnsɪkwəns/",   zh:"后果；结果",           ex:"Think about the consequences first.",                     mem:"con + sequence（顺序），跟着来的结果",              cat:"soc"},
+  {w:"controversial",ph:"/ˌkɒntrəˈvɜːʃl/",zh:"有争议的",             ex:"Climate change is no longer controversial.",              mem:"contro（反对）+ verse（转），对着转=争议",          cat:"soc"},
+  {w:"poverty",     ph:"/ˈpɒvəti/",        zh:"贫困；贫穷",           ex:"Education can help reduce poverty.",                      mem:"poor → poverty，穷的状态",                         cat:"soc"},
+  {w:"privilege",   ph:"/ˈprɪvɪlɪdʒ/",    zh:"特权；优待",           ex:"Clean water is a privilege for some.",                    mem:"priv（私有）+ lege（法律），私有的法律权利",        cat:"soc"},
+  {w:"phenomenon",  ph:"/fəˈnɒmɪnən/",    zh:"现象",                 ex:"Social media is a modern phenomenon.",                    mem:"pheno（显现）+ menon，显现出来的事",               cat:"soc"},
+  {w:"discrimination",ph:"/dɪˌskrɪmɪˈneɪʃn/",zh:"歧视；差别对待",   ex:"Discrimination must not be tolerated.",                   mem:"dis + crimin（辨别）+ ation，刻意区别对待",       cat:"soc"},
+  {w:"reform",      ph:"/rɪˈfɔːm/",        zh:"改革；改善",           ex:"The government plans major education reform.",            mem:"re（重新）+ form（形式），重塑形式",               cat:"soc"},
+  {w:"integrate",   ph:"/ˈɪntɪɡreɪt/",    zh:"整合；融合",           ex:"Try to integrate exercise into your daily routine.",      mem:"integer（整数）+ ate，合成一个整体",               cat:"soc"},
+  {w:"impact",      ph:"/ˈɪmpækt/",        zh:"影响；冲击",           ex:"Social media has a huge impact on youth.",                mem:"im（进入）+ pact（打包），打进去 = 冲击",          cat:"soc"},
+  {w:"inequality",  ph:"/ˌɪnɪˈkwɒlɪti/",  zh:"不平等；不均等",       ex:"Inequality between the rich and poor is growing.",        mem:"in（不）+ equality（平等）= 不平等",               cat:"soc"},
+  {w:"globalization",ph:"/ˌɡləʊbəlaɪˈzeɪʃn/",zh:"全球化",            ex:"Globalization has changed the economy.",                  mem:"global（全球）+ ization，使全球化的过程",          cat:"soc"},
+  {w:"urban",       ph:"/ˈɜːbən/",         zh:"城市的；都市的",       ex:"Urban life can be stressful.",                            mem:"ur（城市）+ ban，城市里的",                        cat:"soc"},
+  {w:"regulate",    ph:"/ˈreɡjuleɪt/",     zh:"规范；调节",           ex:"The government should regulate social media.",            mem:"regul（规则）+ ate，按规则来",                     cat:"soc"},
+  {w:"bias",        ph:"/ˈbaɪəs/",         zh:"偏见；偏差",           ex:"Try to avoid gender bias.",                               mem:"bi（两边）+ as，偏向一边 = 偏见",                  cat:"soc"},
+  {w:"emerge",      ph:"/ɪˈmɜːdʒ/",        zh:"出现；涌现",           ex:"New technologies emerge every year.",                     mem:"e（出）+ merge（合并），从合并中冒出来",            cat:"soc"},
+  {w:"advocate",    ph:"/ˈædvəkeɪt/",      zh:"倡导；支持者",         ex:"She advocates for equal rights.",                         mem:"ad（向）+ voc（声音）+ ate，向前发声 = 倡导",      cat:"soc"},
+  {w:"crisis",      ph:"/ˈkraɪsɪs/",       zh:"危机；紧急关头",       ex:"The country is facing an economic crisis.",               mem:"cry（哭）+ sis，哭着的状态 = 危机",                cat:"soc"},
+  {w:"migration",   ph:"/maɪˈɡreɪʃn/",    zh:"移民；迁移",           ex:"Migration has increased in recent years.",                mem:"migr（移动）+ ation，移动的行为",                   cat:"soc"},
+  {w:"welfare",     ph:"/ˈwelfeə/",        zh:"福利；幸福",           ex:"Child welfare must be protected.",                        mem:"well（好）+ fare（生活），好好生活的保障",         cat:"soc"},
+  {w:"inflation",   ph:"/ɪnˈfleɪʃn/",      zh:"通货膨胀",             ex:"Inflation has raised the price of food.",                 mem:"in + flat（膨胀）+ ion，物价膨胀起来",             cat:"soc"},
+  {w:"ethical",     ph:"/ˈeθɪkl/",         zh:"道德的；伦理的",       ex:"Is it ethical to use AI in exams?",                       mem:"eth（道德）+ ical，关于道德的",                    cat:"soc"},
+  {w:"censorship",  ph:"/ˈsensəʃɪp/",      zh:"审查制度",             ex:"Online censorship is a sensitive topic.",                 mem:"censor（检查官）+ ship，检查官的制度",             cat:"soc"},
+
+  // ── 学术 / 考试 acad (25词) ──────────────────────────
+  {w:"significant", ph:"/sɪɡˈnɪfɪkənt/",  zh:"重要的；显著的",       ex:"This is a significant improvement.",                      mem:"sign（信号）+ ificant，发出信号 = 重要",           cat:"acad"},
+  {w:"emphasize",   ph:"/ˈemfəsaɪz/",      zh:"强调",                 ex:"The report emphasizes the need for change.",              mem:"em + phase（阶段），专门停在这里 = 强调",           cat:"acad"},
+  {w:"distinguish", ph:"/dɪˈstɪŋɡwɪʃ/",   zh:"区分；辨别",           ex:"Can you distinguish between the two?",                    mem:"dis（分开）+ sting（刺），用刺分开 = 区分",        cat:"acad"},
+  {w:"abundant",    ph:"/əˈbʌndənt/",      zh:"丰富的；大量的",       ex:"There is abundant evidence for this.",                    mem:"ab + und（波浪）+ ant，波浪汹涌 = 大量",          cat:"acad"},
+  {w:"consistent",  ph:"/kənˈsɪstənt/",   zh:"一致的；持续的",       ex:"Be consistent with your studying.",                       mem:"con（共同）+ sist（站），一直站在一起 = 一致",     cat:"acad"},
+  {w:"potential",   ph:"/pəˈtenʃl/",       zh:"潜力；可能性",         ex:"She has great potential.",                                mem:"potent（有力）+ ial，有隐藏的力量 = 潜力",        cat:"acad"},
+  {w:"interpret",   ph:"/ɪnˈtɜːprɪt/",    zh:"解释；理解；口译",     ex:"How do you interpret this sentence?",                     mem:"inter（之间）+ pret（价值），在两者间找价值",      cat:"acad"},
+  {w:"perspective", ph:"/pəˈspektɪv/",    zh:"视角；观点",           ex:"Try to see things from her perspective.",                 mem:"per（通过）+ spect（看），看穿过去的角度",         cat:"acad"},
+  {w:"contradictory",ph:"/ˌkɒntrəˈdɪktəri/",zh:"矛盾的；相反的",    ex:"The two statements are contradictory.",                   mem:"contra（反）+ dict（说）= 反着说 = 矛盾",         cat:"acad"},
+  {w:"relevant",    ph:"/ˈreləvənt/",      zh:"相关的；切题的",       ex:"Make sure your examples are relevant.",                   mem:"re + lev（举起）+ ant，举起来有关联的",            cat:"acad"},
+  {w:"evidence",    ph:"/ˈevɪdəns/",       zh:"证据；依据",           ex:"Always support your point with evidence.",                mem:"evid（明显）+ ence，明显看得出来的东西",           cat:"acad"},
+  {w:"demonstrate", ph:"/ˈdemənstreɪt/",   zh:"证明；演示",           ex:"She demonstrated her argument clearly.",                  mem:"demon（显示）+ strate，把东西展示出来",            cat:"acad"},
+  {w:"assume",      ph:"/əˈsjuːm/",        zh:"假设；假定；承担",     ex:"Don't assume — always verify.",                           mem:"as + sume（拿），拿来用的前提 = 假设",             cat:"acad"},
+  {w:"whereas",     ph:"/weərˈæz/",        zh:"然而；鉴于",           ex:"She loves coffee, whereas he prefers tea.",               mem:"where（哪里）+ as（当）= 在某处对比",              cat:"acad"},
+  {w:"convey",      ph:"/kənˈveɪ/",        zh:"传达；表达",           ex:"Words can't always convey emotions.",                     mem:"con（共同）+ vey（路），开路传递信息",             cat:"acad"},
+  {w:"elaborate",   ph:"/ɪˈlæbərət/",      zh:"详细说明；精心的",     ex:"Could you elaborate on that point?",                      mem:"e + labor（劳动）+ ate，精心劳动做出来的",         cat:"acad"},
+  {w:"perceive",    ph:"/pəˈsiːv/",        zh:"感知；理解；察觉",     ex:"How do you perceive this problem?",                       mem:"per（完全）+ ceive（抓），完全抓住 = 感知",        cat:"acad"},
+  {w:"fundamental", ph:"/ˌfʌndəˈmentl/",  zh:"基本的；根本的",       ex:"This is a fundamental human right.",                      mem:"fund（基金/基础）+ amental，地基一样基础",         cat:"acad"},
+  {w:"circumstance",ph:"/ˈsɜːkəmstəns/",  zh:"情况；环境；境况",     ex:"Success depends on circumstances.",                       mem:"circum（周围）+ stance（站立），周围的站立 = 处境",cat:"acad"},
+  {w:"controversy", ph:"/ˈkɒntrəvɜːsi/",  zh:"争论；争议",           ex:"The decision sparked controversy.",                       mem:"contro（反）+ verse（转），反着转 = 争议",         cat:"acad"},
+  {w:"supplement",  ph:"/ˈsʌplɪment/",    zh:"补充；增补",           ex:"Vitamins supplement a poor diet.",                        mem:"sup（补）+ ple + ment，补充进来的",               cat:"acad"},
+  {w:"paradox",     ph:"/ˈpærədɒks/",      zh:"悖论；矛盾现象",       ex:"It's a paradox that the busiest people are the happiest.",mem:"para（旁边）+ dox（观点），旁边的观点 = 悖论",    cat:"acad"},
+  {w:"coherent",    ph:"/kəʊˈhɪərənt/",   zh:"连贯的；有条理的",     ex:"Your essay needs to be more coherent.",                   mem:"co（共同）+ herent（黏），黏在一起 = 连贯",        cat:"acad"},
+  {w:"abstract",    ph:"/ˈæbstrækt/",      zh:"抽象的；摘要",         ex:"Philosophy can be very abstract.",                        mem:"ab（离开）+ stract（拉），拉离现实 = 抽象",       cat:"acad"},
+  {w:"inference",   ph:"/ˈɪnfərəns/",      zh:"推断；推理",           ex:"Draw inferences from the data.",                          mem:"in + fer（带来）+ ence，带进来推理",               cat:"acad"},
+];
+
+const CAT_LABELS = {all:"全部", emo:"情感 / 人际", life:"日常生活", soc:"社会 / 时事", acad:"学术 / 考试"};
+let currentCat = "all";
+let query = "";
+let opened = new Set();
+
+function getFiltered() {
+  return WORDS.filter(d => {
+    const matchCat = currentCat === "all" || d.cat === currentCat;
+    const q = query.toLowerCase();
+    const matchQ = !q || d.w.toLowerCase().includes(q) || d.zh.includes(q) || d.mem.includes(q);
+    return matchCat && matchQ;
+  });
+}
+
+function buildGrid() {
+  const filtered = getFiltered();
+  const grid = document.getElementById("grid");
+  document.getElementById("count-badge").textContent = filtered.length + " 词";
+  if (!filtered.length) {
+    grid.innerHTML = '<div class="empty">没有找到相关单词，换个关键词试试～</div>';
+    return;
+  }
+  grid.innerHTML = filtered.map(d => {
+    const isOpen = opened.has(d.w);
+    return `<div class="card cat-${d.cat}${isOpen?' open':''}" onclick="toggleCard('${d.w}',this)">
+      <div class="card-head">
+        <span class="word">${d.w}</span>
+        <span class="tag tag-${d.cat}">${CAT_LABELS[d.cat]}</span>
+      </div>
+      <div class="phonetic">${d.ph}</div>
+      <div class="meaning">${d.zh}</div>
+      <div class="example">${d.ex}</div>
+      <div class="mem-area">
+        <div class="mem">💡 ${d.mem}</div>
+      </div>
+      <span class="toggle-hint">${isOpen ? '收起 ▲' : '记忆技巧 ▼'}</span>
+    </div>`;
+  }).join("");
+  updateProgress();
+}
+
+function toggleCard(word, el) {
+  if (opened.has(word)) {
+    opened.delete(word);
+    el.classList.remove("open");
+    el.querySelector(".toggle-hint").textContent = "记忆技巧 ▼";
+  } else {
+    opened.add(word);
+    el.classList.add("open");
+    el.querySelector(".toggle-hint").textContent = "收起 ▲";
+  }
+  updateProgress();
+}
+
+function updateProgress() {
+  const total = WORDS.length;
+  const n = opened.size;
+  const pct = Math.round(n / total * 100);
+  document.getElementById("prog-label").textContent = `已翻开 ${n} / ${total}`;
+  document.getElementById("prog-fill").style.width = pct + "%";
+}
+
+window.setFilter = function(cat, btn) {
+  currentCat = cat;
+  document.querySelectorAll(".fbtn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  buildGrid();
+};
+
+document.getElementById("search").addEventListener("input", e => {
+  query = e.target.value;
+  buildGrid();
+});
+
+buildGrid();
+</script>
+</body>
+</html>
